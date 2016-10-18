@@ -33,13 +33,13 @@ gulp.task("sass", function(){
         .pipe(browserSync.reload({stream: true}));
 });
 
-//gulp.task("js", function(){
-//    
-//    return gulp.src(Files.js)
-//            .pipe(concat("main.js"))
-//            .pipe(gulp.dest(Files.js_dest))
-//            .pipe(browserSync.reload({stream: true}));
-//});
+gulp.task("js", function(){
+    
+    return gulp.src(Files.js)
+            .pipe(concat("main.js"))
+            .pipe(gulp.dest(Files.js_dest))
+            .pipe(browserSync.reload({stream: true}));
+});
 
 gulp.task("default", ["sass"], function(){
 
