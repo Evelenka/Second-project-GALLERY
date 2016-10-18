@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    
         var next = $('.arrow-right');
         var prev = $('.arrow-left');              
         
@@ -14,19 +14,33 @@ $(document).ready(function () {
 //        var widthLarge = 0; 
     
         var indexSmall = 1;
-        var indexLarge = 1; 
+        var indexLarge = 1;
     
+    function resizeSlider() {
+        console.log('resizeSlider');
+        
+        width = $('.photo-wrap-container').width(); 
+        widthLarge = $('.site-right').width();
+        widthTitle = $('.title-sec-pagin').width();
+        
+        console.log(width, widthLarge);
+        
+        ul.css('left', -(indexSmall * width)).width(width * 6);
+        
+        ulLarge.css('left', -(indexLarge * widthLarge)).width(widthLarge * 6);        
+    }   
     
-    function slider() {     
-
+    function slider() {
                 
+        resizeSlider(); 
+        
         //klonowanie pierwszego elem sliderow w celu plynnego przejscia miedzy ostatnim elementem a pierwszym
         var el = li.eq(0).clone(true);
         el.appendTo(ul);
         console.log(li.length);  
         
         var elLarge = liLarge.eq(0).clone(true);
-        el.appendTo(ulLarge);
+        elLarge.appendTo(ulLarge);
         console.log(liLarge.length);
         
         //klonowanie ostatniego elem sliderow
@@ -58,7 +72,7 @@ $(document).ready(function () {
 
             ul.animate({
                 left: -(indexSmall * width)
-            }, function(){
+            }, 1200, function(){
 //                console.log(indexSmall);
                 if (indexSmall == li.length) {
                     ul.css('left', 0);
@@ -68,7 +82,7 @@ $(document).ready(function () {
             
             ulLarge.animate({
                 left: -(indexLarge * widthLarge)
-            }, function() {
+            }, 1200, function() {
 //                console.log(indexLarge);
                 if (indexLarge == liLarge.length) {
                     ulLarge.css('left', 0);
@@ -92,7 +106,7 @@ $(document).ready(function () {
 
             ul.animate({
                 left: -(indexSmall * width)
-            }, function(){
+            }, 1200, function(){
                 console.log(indexSmall);
                 if (indexSmall == 0) {
                     indexSmall = 4;
@@ -103,7 +117,7 @@ $(document).ready(function () {
             
             ulLarge.animate({
                 left: -(indexLarge * widthLarge)
-            }, function(){
+            }, 1200, function(){
                 console.log(indexLarge);
                 if (indexLarge == 0) {
                     indexLarge = 4;
@@ -114,4 +128,13 @@ $(document).ready(function () {
         
         }
 
+    $(window).on('load', function () {
+        slider();
+        
+        $(window).on('resize', function () {    
+            resizeSlider();
+            
+        });
+        
+    });
 });
